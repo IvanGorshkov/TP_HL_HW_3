@@ -19,7 +19,7 @@ func main() {
 	e.GET("/", hello)
 
 	// Start server
-	e.Logger.Fatal(e.Start("34.125.113.162:1323"))
+	e.Logger.Fatal(e.Start(":1323"))
 
 }
 
