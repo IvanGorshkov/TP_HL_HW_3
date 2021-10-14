@@ -9,11 +9,13 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/google/uuid"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
+	"github.com/liderman/text-generator"
 )
 
 var hitsTotal = prometheus.NewCounter(prometheus.CounterOpts{
 	Name: "hits",
 })
+
 func main() {
 
 	if err := prometheus.Register(hitsTotal); err != nil {
@@ -29,7 +31,7 @@ func main() {
 	e.Use(middleware.Recover())
 
 	// Routes
-	e.GET("/", hello)
+	e.GET("/", handler)
 	e.GET("/metrics",  echo.WrapHandler(promhttp.Handler()))
 
 	// Start server
@@ -37,8 +39,11 @@ func main() {
 
 }
 
-func hello(c echo.Context) error {
+func handler(c echo.Context) error {
 	id := uuid.New()
 	hitsTotal.Inc()
-	return c.String(http.StatusOK, id.String())
+	tg := text_generator.New()
+	template := "{Good {morning|evening|day}|Goodnight|Hello}, {friend|brother}! {How are you|What's new with you}?"
+
+	return c.String(http.StatusOK, id.String() + " " + tg.Generate(template))
 }
