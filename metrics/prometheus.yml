@@ -6,16 +6,16 @@ scrape_configs:
 
   - job_name: server_1
     static_configs:
-      - targets: ['35.204.234.211:9100']
-      - targets: ['35.204.234.211:8080']
+      - targets: ['34.90.227.166:9100']
+      - targets: ['34.90.227.166:8080']
   - job_name: server_2
     static_configs:
-      - targets: ['34.91.164.32:9100']
-      - targets: ['34.91.164.32:8080']
+      - targets: ['35.204.97.55:9100']
+      - targets: ['35.204.97.55:8080']
   - job_name: server_3
     static_configs:
-      - targets: [ '34.141.155.142:9100' ]
-      - targets: [ '34.141.155.142:8080' ]
+      - targets: [ '35.204.170.172:9100' ]
+      - targets: [ '35.204.170.172:8080' ]
 
 
 
