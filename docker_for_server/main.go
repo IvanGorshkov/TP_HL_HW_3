@@ -2,14 +2,19 @@ package main
 
 import (
 	"fmt"
-	"github.com/prometheus/client_golang/prometheus"
+	"math"
+	"math/rand"
 	"net/http"
+	"time"
 
+	"github.com/prometheus/client_golang/prometheus"
+
+	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"github.com/google/uuid"
-	"github.com/prometheus/client_golang/prometheus/promhttp"
+	"github.com/labstack/gommon/random"
 	"github.com/liderman/text-generator"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 var hitsTotal = prometheus.NewCounter(prometheus.CounterOpts{
@@ -44,6 +49,6 @@ func handler(c echo.Context) error {
 	hitsTotal.Inc()
 	tg := text_generator.New()
 	template := "{Good {morning|evening|day}|Goodnight|Hello}, {friend|brother}! {How are you|What's new with you}?"
-
+	time.Sleep(time.Duration(rand.Intn(1000)) * time.Microsecond)
 	return c.String(http.StatusOK, id.String() + " " + tg.Generate(template))
 }
